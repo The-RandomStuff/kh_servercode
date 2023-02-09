@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Send Notification</h2>
+
+<form action="">
+  <label for="notification">Notification:</label><br>
+  <input type="text" id="notification" name="notification"><br><br>
+  <input type="submit" onclick="sendNotf(document.getElementById('notification').value)" value="Submit">
+</form> 
+
+<script>
+    function sendNotf(str) {
+      
+      fetch('http://localhost:8081/sendnotification', {method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ "message": str })
+    })
+    .then(response => response.json())
+    .then(response => console.log(JSON.stringify(response)))
+    }
+</script>
+
+</body>
+</html>
