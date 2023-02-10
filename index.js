@@ -388,11 +388,16 @@ app.post('/notification/register', function(request, response){
 
 
 app.get('/notification', function(request, response){
-
-  let relativePath = './web_view/notification.html';
-  let absolutePath = path.resolve(relativePath);
-  
-    response.sendFile(absolutePath);
+  let fs = require('fs');
+  fs.readFile('./web_view/notification.html', null, function (error, data) {
+    if (error) {
+        response.writeHead(404);
+        respone.write('file not found');
+    } else {
+        response.write(data);
+    }
+    response.end();
+    });
   });
 
 app.post('/sendnotification', async function(request, response){
