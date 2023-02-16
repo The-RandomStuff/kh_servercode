@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 var nodemailer = require('nodemailer');
 const braintree = require("braintree");
 const hbs = require('nodemailer-express-handlebars')
@@ -7,6 +10,11 @@ const hbs = require('nodemailer-express-handlebars')
 const stripe = require('stripe')('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');
 
 app.use(express.json());
+
+const options ={
+  key: fs.readFileSync('certificates/key.pem'),
+  cert: fs.readFileSync('certificates/cert.pem')
+}
 
 const gateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
@@ -577,4 +585,18 @@ async function postTime (dateTime){
 
 
 
-app.listen(8081);
+//app.listen(8081);
+var pk = fs.readFileSync('./certificates/key.pem');
+var ck = fs.readFileSync('./certificates/cert.pem');
+
+// https.createServer(options, (req, res) =>{
+// res.end("works")
+// }).listen(8081)
+
+const httpsServer = https.createServer({
+  key: pk,
+  cert: ck
+}, app);
+
+httpsServer.listen(8081, () =>{
+});
