@@ -366,7 +366,7 @@ const apnProvider = new apn.Provider({
         keyId: '78LZS7PS9C',
         teamId: '5MM3Y72PH8'
     },
-    production: false
+    production: true
 });
 
 
@@ -577,4 +577,4 @@ async function postTime (dateTime){
 
 
 
-app.listen(8081);
+app.listen(80);
