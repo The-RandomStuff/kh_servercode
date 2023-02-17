@@ -12,8 +12,8 @@ const stripe = require('stripe')('sk_live_51KxqFKQepSRTKNOQtGOYb6xd7dZOP0VYiC1Rc
 app.use(express.json());
 
 const options ={
-  key: fs.readFileSync('certificates/key.pem'),
-  cert: fs.readFileSync('certificates/cert.pem')
+  key: fs.readFileSync('/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.key'),
+  cert: fs.readFileSync('/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.crt')
 }
 
 const gateway = new braintree.BraintreeGateway({
@@ -586,20 +586,19 @@ async function postTime (dateTime){
 
 
 //app.listen(8081);
-// var pk = fs.readFileSync('./certificates/key.pem');
-// var ck = fs.readFileSync('./certificates/cert.pem');
-
-var pk = fs.readFileSync('../opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.key');
-var ck = fs.readFileSync('../opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.crt');
 
 // https.createServer(options, (req, res) =>{
 // res.end("works")
 // }).listen(8081)
 
-const httpsServer = https.createServer({
-  key: pk,
-  cert: ck
-}, app);
+// const httpsServer = https.createServer({
+//   key: pk,
+//   cert: ck
+// }, app);
 
-httpsServer.listen(8081, () =>{
-});
+// httpsServer.listen(8081, () =>{
+// });
+
+https.createServer(options, (req, res) => {
+
+}).listen(8081);
