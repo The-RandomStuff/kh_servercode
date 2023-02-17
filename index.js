@@ -586,8 +586,11 @@ async function postTime (dateTime){
 
 
 //app.listen(8081);
-var pk = fs.readFileSync('./certificates/key.pem');
-var ck = fs.readFileSync('./certificates/cert.pem');
+// var pk = fs.readFileSync('./certificates/key.pem');
+// var ck = fs.readFileSync('./certificates/cert.pem');
+
+var pk = fs.readFileSync('../opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.key');
+var ck = fs.readFileSync('../opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.crt');
 
 // https.createServer(options, (req, res) =>{
 // res.end("works")
