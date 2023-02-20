@@ -585,7 +585,6 @@ async function postTime (dateTime){
 
 var pk = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.key' );
 var ck = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.crt' );
-var caq = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.issuer.crt' );
 
 //app.listen(8081);
 
@@ -595,13 +594,11 @@ var caq = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandoms
 
 const httpsServer = https.createServer({
   key: pk,
-  cert: ck,
-  ca: [
-    caq
-  ]
+  cert: ck
 }, app);
 
-httpsServer.listen(443, () =>{
+httpsServer.listen(8081, () =>{
+console.log("Running");
 });
 
 // https.createServer(options, (req, res) => {
