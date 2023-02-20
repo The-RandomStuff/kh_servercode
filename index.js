@@ -366,6 +366,7 @@ const itemRef = db.collection("Item")
 const bookedRef = db.collection("Booked")
 const slayWallRef = db.collection("SlayWall")
 const homeitemRef = db.collection("HomeItem")
+const promoRef = db.collection("Promo")
 
 // Set up the APN provider
 const apnProvider = new apn.Provider({
@@ -560,6 +561,28 @@ app.get('/slaywall/get', async function(req, res){
         }
 
         ar = photos
+
+    })
+  })
+
+  console.log(ar);
+  res.send(JSON.stringify(ar))
+
+})
+
+app.get('/promo/get', async function(req, res){
+  
+  var ar = []
+
+  await promoRef.get().then((querySnapshot) => {
+    querySnapshot.forEach(document => {
+
+        const promo = {
+            code: document.data().code,
+            percentage: document.data().percentage
+        }
+
+        ar = promo
 
     })
   })
