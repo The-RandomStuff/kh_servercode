@@ -29,11 +29,8 @@ getSermons('https://yetanothersermon.host/_/kc/public-api/v1/sermons/');
 
 async function getSermons(url) {
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get(url);
+        const data = response.data;
         console.log("The supposed amount: " + data.count);
         const results = data.results;
 
@@ -61,7 +58,7 @@ async function getSermons(url) {
         const nextPage = data.next;
 
         if (nextPage != null){
-            getSermons(nextPage);
+            await getSermons(nextPage);
         }
 
     } catch (error) {
@@ -71,11 +68,8 @@ async function getSermons(url) {
 
 async function getNewestVideo(url) {
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const response = await axios.get(url);
+        const data = response.data;
         const results = data.items[0].id.videoId;
 
         this.videoId = results;
@@ -90,7 +84,7 @@ async function getNewestVideo(url) {
 var pk = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.key' );
 var ck = fs.readFileSync( '/opt/bitnami/letsencrypt/certificates/www.therandomstuff-server.uk.crt' );
 //
-// app.listen(8082);
+//  app.listen(8082);
 
 
 const httpsServer = https.createServer({
